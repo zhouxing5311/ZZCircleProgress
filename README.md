@@ -18,7 +18,7 @@ ZZCircleProgress拷贝至项目工程，导入ZZCircleProgress.h。
           strokeWidth:(CGFloat)strokeWidth;
                   
 效果展示:
-
+![image](https://github.com/zhouxing5311/ZZCircleProgress/ZZCircleProgressDemo/ZZCircleProgress.gif ) 
 
 一直想做一个实现和使用起来都比较简便的圆形进度条，但是网上一直没有找到合适的，因此打算参考别人的代码并加入自己的实现及优化，
 从而实现了现在的这个圆弧形进度条。项目开发中需要一个简单的进度条，但是搜索了很多一直没有找到适合我们项目的使用情况。主要是有两点问题。
