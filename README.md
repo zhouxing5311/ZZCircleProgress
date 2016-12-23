@@ -26,9 +26,10 @@ circle1.reduceValue = 30; 360 - 30 = 330度即为整个进度条的全部，计�
 circle1.animationModel = CircleIncreaseSameTime;// 不同进度动画时间相同
 circle1.animationModel = CircleIncreaseByProgress;// 进度越大时间越久
 
-3.是否显示光标及进度文字
+3.是否显示光标及进度文字。设置光标图片
 circle1.showPoint = YES;
 circle1.showProgressText = YES;
+circle1.pointImage = [UIImage imageNamed:@"xxx"];
 
 效果展示:
 

@@ -53,10 +53,11 @@
     circle2.animationModel = CircleIncreaseSameTime;
     [self.view addSubview:circle2];
     
-    //自定义起始角度
+    //自定义起始角度、自定义小圆点
     circle3 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:-255 strokeWidth:10];
     circle3.progress = 0.6;
     circle3.reduceValue = 30;
+    circle3.pointImage = [UIImage imageNamed:@"test_point"];
     [self.view addSubview:circle3];
     
     //同动画时间、隐藏文字

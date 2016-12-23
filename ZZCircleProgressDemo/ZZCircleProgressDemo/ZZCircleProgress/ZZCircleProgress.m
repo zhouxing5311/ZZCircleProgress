@@ -67,9 +67,13 @@
     _startAngle = -CircleDegreeToRadian(90);//圆起点位置
     _reduceValue = CircleDegreeToRadian(0);//整个圆缺少的角度
     _animationModel = CircleIncreaseByProgress;//根据进度来
-    fakeProgress = 0.0;//用来逐渐增加直到等于progress的值
     _showPoint = YES;//小圆点
     _showProgressText = YES;//文字
+    
+    fakeProgress = 0.0;//用来逐渐增加直到等于progress的值
+    //获取图片资源
+    NSBundle *resourcesBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"ZZCircleBundle" ofType:@"bundle"]];
+    _pointImage = [UIImage imageNamed:@"circle_point1" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
 }
 
 #pragma Set
@@ -167,7 +171,7 @@
     
     //画小圆点
     if (_showPoint) {
-        CGContextDrawImage(ctx, CGRectMake(CircleSelfWidth/2 + ((CGRectGetWidth(self.bounds)-_strokeWidth)/2.f-1)*cosf(valueEndA)-_strokeWidth/2.0, CircleSelfWidth/2 + ((CGRectGetWidth(self.bounds)-_strokeWidth)/2.f-1)*sinf(valueEndA)-_strokeWidth/2.0, _strokeWidth, _strokeWidth), [UIImage imageNamed:@"circle_point"].CGImage);
+        CGContextDrawImage(ctx, CGRectMake(CircleSelfWidth/2 + ((CGRectGetWidth(self.bounds)-_strokeWidth)/2.f-1)*cosf(valueEndA)-_strokeWidth/2.0, CircleSelfWidth/2 + ((CGRectGetWidth(self.bounds)-_strokeWidth)/2.f-1)*sinf(valueEndA)-_strokeWidth/2.0, _strokeWidth, _strokeWidth), _pointImage.CGImage);
     }
     
     if (_showProgressText) {
