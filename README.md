@@ -16,9 +16,24 @@ ZZCircleProgress拷贝至项目工程，导入ZZCircleProgress.h。
         pathFillColor:(UIColor *)pathFillColor
            startAngle:(CGFloat)startAngle
           strokeWidth:(CGFloat)strokeWidth;
-                  
+
+特色功能:
+1.起始角度及缺少的圆弧角度可以自己指定。而且只需要传入具体的角度即可。如
+circle1.startAngle = 90; 起点则为圆弧的正下方。
+circle1.reduceValue = 30; 360 - 30 = 330度即为整个进度条的全部，计算进度条位置会自动减去30度。
+
+2.两种动画模式
+circle1.animationModel = CircleIncreaseSameTime;// 不同进度动画时间相同
+circle1.animationModel = CircleIncreaseByProgress;// 进度越大时间越久
+
+3.是否显示光标及进度文字
+circle1.showPoint = YES;
+circle1.showProgressText = YES;
+
 效果展示:
+
 ![image](https://github.com/zhouxing5311/ZZCircleProgress/blob/master/ZZCircleProgressDemo/ZZCircleProgress.gif) 
+
 
 一直想做一个实现和使用起来都比较简便的圆形进度条，但是网上一直没有找到合适的，因此打算参考别人的代码并加入自己的实现及优化，
 从而实现了现在的这个圆弧形进度条。项目开发中需要一个简单的进度条，但是搜索了很多一直没有找到适合我们项目的使用情况。主要是有两点问题。
