@@ -182,7 +182,7 @@
         textStyle.lineBreakMode = NSLineBreakByWordWrapping;
         textStyle.alignment = NSTextAlignmentCenter;//水平居中
         //字体
-        UIFont *font = [UIFont boldSystemFontOfSize:22.0];
+        UIFont *font = [UIFont systemFontOfSize:0.15*CircleSelfWidth];
         //构建属性集合
         NSDictionary *attributes = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:textStyle};
         //获得size
