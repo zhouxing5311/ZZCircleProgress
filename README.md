@@ -1,37 +1,61 @@
 # ZZCircleProgress
 
-draw rect实现的圆形进度条。可以使用部分圆弧当做整个进度条，并可以随意设置起始角度及减少的圆弧角度大小。
+draw rect实现的圆形进度条。可以使用部分圆弧当做整个进度条，并可以随意设置起始角度及减少的圆弧角度大小。</br>
 
-使用方法:
-ZZCircleProgress拷贝至项目工程，导入ZZCircleProgress.h。
+<h2>更新日志</h2>
+增加 increaseFromLast 参数，为YES则动画是从上次的数值开始动画，否则从头开始</br>
+增加 notAnimated 参数，为YES则set数值的时候没有动画</br>
+更新效果图</br>
+
+<h2>使用方法:</h2>
+ZZCircleProgress拷贝至项目工程，导入ZZCircleProgress.h。</br>
         
-初始化:
-1.- (instancetype)init;
+<h3>初始化:</h3>
+```Objective-c
+- (instancetype)init;
 
-2.- (instancetype)initWithFrame:(CGRect)frame;
 
-3.//初始化 坐标 线条背景色 填充色 起始角度 线宽
-  - (instancetype)initWithFrame:(CGRect)frame
-        pathBackColor:(UIColor *)pathBackColor
-        pathFillColor:(UIColor *)pathFillColor
-           startAngle:(CGFloat)startAngle
-          strokeWidth:(CGFloat)strokeWidth;
+- (instancetype)initWithFrame:(CGRect)frame;
 
-特色功能:
-1.起始角度及缺少的圆弧角度可以自己指定。而且只需要传入具体的角度即可。如
-circle1.startAngle = 90; 起点则为圆弧的正下方。
-circle1.reduceValue = 30; 360 - 30 = 330度即为整个进度条的全部，计算进度条位置会自动减去30度。
+//初始化 坐标 线条背景色 填充色 起始角度 线宽
+- (instancetype)initWithFrame:(CGRect)frame
+    pathBackColor:(UIColor *)pathBackColor
+    pathFillColor:(UIColor *)pathFillColor
+       startAngle:(CGFloat)startAngle
+      strokeWidth:(CGFloat)strokeWidth;
+```
 
-2.两种动画模式
+<h3>特色功能:</h3>
+1.起始角度及缺少的圆弧角度可以自己指定。而且只需要传入具体的角度即可。如</br>
+```Objective-c
+circle1.startAngle = 90; //起点则为圆弧的正下方。
+circle1.reduceValue = 30; //360 - 30 = 330度即为整个进度条的全部，计算进度条位置会自动减去30度。
+```
+
+2.两种动画模式</br>
+```Objective-c
 circle1.animationModel = CircleIncreaseSameTime;// 不同进度动画时间相同
 circle1.animationModel = CircleIncreaseByProgress;// 进度越大时间越久
+```
 
-3.是否显示光标及进度文字。设置光标图片
+3.可以从上次的数值动画到当前set的数值，为YES则从上次数值开始</br>
+```Objective-c
+circle1.increaseFromLast = YES;
+```
+
+4.是否显示光标及进度文字。设置光标图片</br>
+```Objective-c
 circle1.showPoint = YES;
 circle1.showProgressText = YES;
 circle1.pointImage = [UIImage imageNamed:@"xxx"];
+```
 
-效果展示:
+5.动画开关
+```Objective-c
+circle1.notAnimated = YES;//关闭动画
+```
+
+<h2>效果展示:</h3>
 
 ![image](https://github.com/zhouxing5311/ZZCircleProgress/blob/master/ZZCircleProgressDemo/ZZCircleProgress.gif) 
 

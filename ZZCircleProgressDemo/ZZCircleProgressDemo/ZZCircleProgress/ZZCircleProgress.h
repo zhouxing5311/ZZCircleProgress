@@ -31,6 +31,12 @@ typedef NS_ENUM(NSInteger, CircleIncreaseModel) {
 //进度文字
 @property (nonatomic, assign) BOOL showProgressText;/**<是否显示文字*/
 
+//是否从上次位置开始动画
+@property (nonatomic, assign) BOOL increaseFromLast;/**<是否从上次数值开始动画，默认为NO*/
+
+//动画开关
+@property (nonatomic, assign) BOOL notAnimated;/**<不加动画，默认为NO*/
+
 //动画模式
 @property (nonatomic, assign) CircleIncreaseModel animationModel;/**<动画模式*/
 

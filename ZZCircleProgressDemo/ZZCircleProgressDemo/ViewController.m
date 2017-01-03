@@ -53,10 +53,11 @@
     circle2.animationModel = CircleIncreaseSameTime;
     [self.view addSubview:circle2];
     
-    //自定义起始角度、自定义小圆点
+    //自定义起始角度、自定义小圆点、动画从上次数值开始
     circle3 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:-255 strokeWidth:10];
     circle3.progress = 0.6;
     circle3.reduceValue = 30;
+    circle3.increaseFromLast = YES;
     circle3.pointImage = [UIImage imageNamed:@"test_point"];
     [self.view addSubview:circle3];
     
@@ -70,10 +71,10 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    circle1.progress = 0.6;
-    circle2.progress = 0.6;
-    circle3.progress = 0.6;
-    circle4.progress = 0.3;
+    circle1.progress = arc4random()%100/100.0;
+    circle2.progress = arc4random()%100/100.0;
+    circle3.progress = arc4random()%100/100.0;
+    circle4.progress = arc4random()%100/100.0;
 }
 
 

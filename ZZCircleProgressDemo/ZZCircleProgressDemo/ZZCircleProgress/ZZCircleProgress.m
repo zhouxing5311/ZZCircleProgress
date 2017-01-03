@@ -21,6 +21,7 @@
 @implementation ZZCircleProgress
 {
     CGFloat fakeProgress;
+    BOOL isReverse;//是否是反向刷新，默认为NO
     NSTimer *timer;//定时器用作动画
 }
 
@@ -197,16 +198,36 @@
 //设置进度
 - (void)setProgress:(CGFloat)progress {
     
-    _progress = progress;
-    fakeProgress = 0.0;
+    //按需注释这段代码。
+    if (_progress == progress) {
+        return;
+    }
     
+    fakeProgress = 0.0;
+    //是否从上次数值刷新
+    if (_increaseFromLast) {
+        fakeProgress = _progress;
+        if (progress < fakeProgress) {
+            isReverse = YES;//是反向
+        } else {
+            isReverse = NO;
+        }
+    }
+    _progress = progress;
+    
+    //先暂停计时器
     if (timer) {
         [timer invalidate];
         timer = nil;
     }
-    
     //如果为0则直接刷新
     if (_progress == 0.0) {
+        [self setNeedsDisplay];
+        return;
+    }
+    //如果没有开启动画也直接刷新
+    if (_notAnimated) {
+        fakeProgress = _progress;
         [self setNeedsDisplay];
         return;
     }
@@ -215,31 +236,56 @@
     __weak typeof(self) weakSelf = self;
     
     timer = [NSTimer scheduledTimerWithTimeInterval:0.005 block:^{
+        __strong typeof(weakSelf)strongSelf = weakSelf;
         
-        if (fakeProgress >= _progress || fakeProgress >= 1.0f) {
-            //最后一次赋准确值
-            fakeProgress = _progress;
-            [weakSelf setNeedsDisplay];
-            
-            if (timer) {
-                [timer invalidate];
-                timer = nil;
+        //反方向动画
+        if (isReverse) {
+            if (fakeProgress <= _progress || fakeProgress <= 0.0f) {
+                [strongSelf dealWithLast];
+                return;
+            } else {
+                //进度条动画
+                [strongSelf setNeedsDisplay];
             }
-            return;
         } else {
-            //进度条动画
-            [weakSelf setNeedsDisplay];
+            //正方向动画
+            if (fakeProgress >= _progress || fakeProgress >= 1.0f) {
+                [strongSelf dealWithLast];
+                return;
+            } else {
+                //进度条动画
+                [strongSelf setNeedsDisplay];
+            }
         }
         
-        //数值增加
+        //数值增加或减少
         if (_animationModel == CircleIncreaseSameTime) {
-            fakeProgress += 0.01*(_progress);//不同进度动画时间基本相同
+            if (isReverse) {
+                fakeProgress -= 0.01*(_progress);//不同进度动画时间基本相同
+            } else {
+                fakeProgress += 0.01*(_progress);//不同进度动画时间基本相同
+            }
         } else {
-            fakeProgress += 0.01;//进度越大动画时间越长。
+            if (isReverse) {
+                fakeProgress -= 0.01;//进度越大动画时间越长。
+            } else {
+                fakeProgress += 0.01;//进度越大动画时间越长。
+            }
         }
-        
     } repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
 }
+
+//最后一次动画所做的处理
+- (void)dealWithLast {
+    //最后一次赋准确值
+    fakeProgress = _progress;
+    [self setNeedsDisplay];
+    if (timer) {
+        [timer invalidate];
+        timer = nil;
+    }
+}
+
 @end
