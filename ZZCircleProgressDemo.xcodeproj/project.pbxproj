@@ -15,7 +15,7 @@
 		E021A05B1E0CB185009C67C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E021A0591E0CB185009C67C7 /* LaunchScreen.storyboard */; };
 		E021A0651E0CB20A009C67C7 /* ZZCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E021A0641E0CB20A009C67C7 /* ZZCircleProgress.m */; };
 		E021A0681E0CB215009C67C7 /* NSTimer+timerBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = E021A0671E0CB215009C67C7 /* NSTimer+timerBlock.m */; };
-		E021A0711E0CECFC009C67C7 /* ZZCircleBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E021A0701E0CECFC009C67C7 /* ZZCircleBundle.bundle */; };
+		E021A0711E0CECFC009C67C7 /* ZZCircleProgress.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E021A0701E0CECFC009C67C7 /* ZZCircleProgress.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		E021A0641E0CB20A009C67C7 /* ZZCircleProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCircleProgress.m; sourceTree = "<group>"; };
 		E021A0661E0CB215009C67C7 /* NSTimer+timerBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+timerBlock.h"; sourceTree = "<group>"; };
 		E021A0671E0CB215009C67C7 /* NSTimer+timerBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+timerBlock.m"; sourceTree = "<group>"; };
-		E021A0701E0CECFC009C67C7 /* ZZCircleBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZZCircleBundle.bundle; sourceTree = "<group>"; };
+		E021A0701E0CECFC009C67C7 /* ZZCircleProgress.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZZCircleProgress.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,7 @@
 				E021A0671E0CB215009C67C7 /* NSTimer+timerBlock.m */,
 				E021A0631E0CB20A009C67C7 /* ZZCircleProgress.h */,
 				E021A0641E0CB20A009C67C7 /* ZZCircleProgress.m */,
-				E021A0701E0CECFC009C67C7 /* ZZCircleBundle.bundle */,
+				E021A0701E0CECFC009C67C7 /* ZZCircleProgress.bundle */,
 			);
 			path = ZZCircleProgress;
 			sourceTree = "<group>";
@@ -159,7 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E021A05B1E0CB185009C67C7 /* LaunchScreen.storyboard in Resources */,
-				E021A0711E0CECFC009C67C7 /* ZZCircleBundle.bundle in Resources */,
+				E021A0711E0CECFC009C67C7 /* ZZCircleProgress.bundle in Resources */,
 				E021A0581E0CB185009C67C7 /* Assets.xcassets in Resources */,
 				E021A0561E0CB185009C67C7 /* Main.storyboard in Resources */,
 			);

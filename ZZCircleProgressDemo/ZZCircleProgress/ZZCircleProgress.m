@@ -73,7 +73,8 @@
     
     fakeProgress = 0.0;//用来逐渐增加直到等于progress的值
     //获取图片资源
-    NSBundle *resourcesBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"ZZCircleBundle" ofType:@"bundle"]];
+    NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
+    NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"ZZCircleProgress" ofType:@"bundle"]];
     _pointImage = [UIImage imageNamed:@"circle_point1" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
 }
 
