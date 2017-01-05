@@ -57,7 +57,7 @@ circle1.notAnimated = YES;//关闭动画
 
 <h2>效果展示:</h3>
 
-![image](https://github.com/zhouxing5311/ZZCircleProgress/blob/master/ZZCircleProgressDemo/ZZCircleProgress.gif) 
+![image](https://github.com/zhouxing5311/ZZCircleProgress/blob/master/ZZCircleProgress.gif) 
 
 
 一直想做一个实现和使用起来都比较简便的圆形进度条，但是网上一直没有找到合适的，因此打算参考别人的代码并加入自己的实现及优化，
