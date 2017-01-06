@@ -8,21 +8,30 @@ draw rect实现的圆形进度条。可以使用部分圆弧当做整个进度�
 更新效果图</br>
 
 <h2>使用方法:</h2>
-ZZCircleProgress拷贝至项目工程，导入ZZCircleProgress.h。</br>
+1.pod 'ZZCircleProgress'，搜索不到请pod setup一下。</br>
+2.或ZZCircleProgress文件夹拷贝至项目工程。
+3.导入ZZCircleProgress.h。</br>
         
 <h3>初始化:</h3>
 ```Objective-c
-- (instancetype)init;
 
+ZZCircleProgress *progressView = [[ZZCircleProgress alloc] initWithFrame:CGRectZero pathBackColor:[UIColor cyanColor] pathFillColor:[UIColor redColor] startAngle:0 strokeWidth:8];
+//    progressView.pathBackColor = [UIColor cyanColor];//线条背景色
+//    progressView.pathFillColor = [UIColor redColor];//线条填充色
+//    progressView.startAngle = 0;//圆弧开始角度，默认为-90°，即正上方
+//    progressView.reduceValue = 0;//整个圆弧减少的角度，默认为0
+//    progressView.strokeWidth = 8;//线宽，默认为10
+progressView.frame = CGRectMake(100, 100, 150, 150);
+progressView.increaseFromLast = NO;//为YES动画则从上次的progress开始，否则从头开始，默认为NO
+progressView.animationModel = CircleIncreaseSameTime;//不同的进度条动画时间相同
+progressView.showPoint = YES;//是否显示光标，默认为YES
+progressView.showProgressText = NO;//是否显示进度文本，默认为YES
+progressView.notAnimated = NO;//不开启动画，默认为NO
+progressView.forceRefresh = YES;//是否在set的值等于上次值时同样刷新动画，默认为NO
 
-- (instancetype)initWithFrame:(CGRect)frame;
+progressView.progress = 0.5;//设置完之后给progress的值
+[self.view addSubview:progressView];
 
-//初始化 坐标 线条背景色 填充色 起始角度 线宽
-- (instancetype)initWithFrame:(CGRect)frame
-    pathBackColor:(UIColor *)pathBackColor
-    pathFillColor:(UIColor *)pathFillColor
-       startAngle:(CGFloat)startAngle
-      strokeWidth:(CGFloat)strokeWidth;
 ```
 
 <h3>特色功能:</h3>

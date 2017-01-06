@@ -47,24 +47,24 @@
     
     //无小圆点、同动画时间
     circle2 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack*2+itemWidth, yCrack, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:0 strokeWidth:10];
-    circle2.progress = 0.6;
     circle2.showPoint = NO;
     circle2.animationModel = CircleIncreaseSameTime;
+    circle2.progress = 0.6;
     [self.view addSubview:circle2];
     
     //自定义起始角度、自定义小圆点、动画从上次数值开始
     circle3 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:-255 strokeWidth:10];
-    circle3.progress = 0.6;
     circle3.reduceValue = 30;
     circle3.increaseFromLast = YES;
     circle3.pointImage = [UIImage imageNamed:@"test_point"];
+    circle3.progress = 0.6;
     [self.view addSubview:circle3];
     
     //同动画时间、隐藏文字
     circle4 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack*2+itemWidth, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:0 strokeWidth:10];
-    circle4.progress = 0.3;
     circle4.animationModel = CircleIncreaseSameTime;
     circle4.showProgressText = NO;
+    circle4.progress = 0.3;
     [self.view addSubview:circle4];
     
 }

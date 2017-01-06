@@ -21,7 +21,6 @@
 @implementation ZZCircleProgress
 {
     CGFloat fakeProgress;
-    BOOL isReverse;//是否是反向刷新，默认为NO
     NSTimer *timer;//定时器用作动画
 }
 
@@ -70,6 +69,7 @@
     _animationModel = CircleIncreaseByProgress;//根据进度来
     _showPoint = YES;//小圆点
     _showProgressText = YES;//文字
+    _forceRefresh = NO;//一直刷新动画
     
     fakeProgress = 0.0;//用来逐渐增加直到等于progress的值
     //获取图片资源
@@ -199,13 +199,12 @@
 //设置进度
 - (void)setProgress:(CGFloat)progress {
     
-    //按需注释这段代码。
-    if (_progress == progress) {
+    if ((_progress == progress && !_forceRefresh) || progress>1.0 || progress<0.0) {
         return;
     }
     
     fakeProgress = _increaseFromLast==YES?_progress:0.0;
-    isReverse = progress<fakeProgress?YES:NO;
+    BOOL isReverse = progress<fakeProgress?YES:NO;
     //赋真实值
     _progress = progress;
     

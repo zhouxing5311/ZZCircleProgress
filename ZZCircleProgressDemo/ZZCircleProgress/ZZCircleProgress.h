@@ -25,17 +25,11 @@ typedef NS_ENUM(NSInteger, CircleIncreaseModel) {
 @property (nonatomic, assign) CGFloat reduceValue;/**<减少的角度 直接传度数 如30*/
 @property (nonatomic, assign) CGFloat strokeWidth;/**<线宽*/
 
-//小圆点
 @property (nonatomic, assign) BOOL showPoint;/**<是否显示小圆点*/
-
-//进度文字
 @property (nonatomic, assign) BOOL showProgressText;/**<是否显示文字*/
-
-//是否从上次位置开始动画
 @property (nonatomic, assign) BOOL increaseFromLast;/**<是否从上次数值开始动画，默认为NO*/
-
-//动画开关
 @property (nonatomic, assign) BOOL notAnimated;/**<不加动画，默认为NO*/
+@property (nonatomic, assign) BOOL forceRefresh;/**<set的progress等于上次时是否仍刷新，默认为NO*/
 
 //动画模式
 @property (nonatomic, assign) CircleIncreaseModel animationModel;/**<动画模式*/
