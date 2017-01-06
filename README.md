@@ -3,13 +3,13 @@
 draw rect实现的圆形进度条。可以使用部分圆弧当做整个进度条，并可以随意设置起始角度及减少的圆弧角度大小。</br>
 
 <h2>更新日志</h2>
-增加 increaseFromLast 参数，为YES则动画是从上次的数值开始动画，否则从头开始</br>
-增加 notAnimated 参数，为YES则set数值的时候没有动画</br>
-更新效果图</br>
+1.增加 increaseFromLast 参数，为YES则动画是从上次的数值开始动画，否则从头开始。</br>
+2.增加 notAnimated 参数，为YES则set数值的时候没有动画。</br>
+3.增加 forceRefresh 参数，为YES则set的值等于上次时也刷新动画。</br>
 
 <h2>使用方法:</h2>
 1.pod 'ZZCircleProgress'，搜索不到请pod setup一下。</br>
-2.或ZZCircleProgress文件夹拷贝至项目工程。
+2.或ZZCircleProgress文件夹拷贝至项目工程。</br>
 3.导入ZZCircleProgress.h。</br>
         
 <h3>初始化:</h3>
