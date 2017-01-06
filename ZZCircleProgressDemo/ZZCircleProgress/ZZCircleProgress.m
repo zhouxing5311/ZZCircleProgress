@@ -204,16 +204,9 @@
         return;
     }
     
-    fakeProgress = 0.0;
-    //是否从上次数值刷新
-    if (_increaseFromLast) {
-        fakeProgress = _progress;
-        if (progress < fakeProgress) {
-            isReverse = YES;//是反向
-        } else {
-            isReverse = NO;
-        }
-    }
+    fakeProgress = _increaseFromLast==YES?_progress:0.0;
+    isReverse = progress<fakeProgress?YES:NO;
+    //赋真实值
     _progress = progress;
     
     //先暂停计时器
@@ -221,18 +214,16 @@
         [timer invalidate];
         timer = nil;
     }
-    //如果为0则直接刷新
-    if (_progress == 0.0) {
-        [self setNeedsDisplay];
-        return;
-    }
-    //如果没有开启动画也直接刷新
-    if (_notAnimated) {
+    //如果为0或没有动画则直接刷新
+    if (_progress == 0.0 || _notAnimated) {
         fakeProgress = _progress;
         [self setNeedsDisplay];
         return;
     }
     
+    //设置每次增加的数值
+    CGFloat sameTimeIncreaseValue = _increaseFromLast==YES?fabs(fakeProgress-_progress):_progress;
+    CGFloat defaultIncreaseValue = isReverse==YES?-0.01:0.01;
     
     __weak typeof(self) weakSelf = self;
     
@@ -261,18 +252,11 @@
         
         //数值增加或减少
         if (_animationModel == CircleIncreaseSameTime) {
-            if (isReverse) {
-                fakeProgress -= 0.01*(_progress);//不同进度动画时间基本相同
-            } else {
-                fakeProgress += 0.01*(_progress);//不同进度动画时间基本相同
-            }
+            fakeProgress += defaultIncreaseValue*sameTimeIncreaseValue;//不同进度动画时间基本相同
         } else {
-            if (isReverse) {
-                fakeProgress -= 0.01;//进度越大动画时间越长。
-            } else {
-                fakeProgress += 0.01;//进度越大动画时间越长。
-            }
+            fakeProgress += defaultIncreaseValue;//进度越大动画时间越长。
         }
+        
     } repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
