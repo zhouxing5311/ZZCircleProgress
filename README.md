@@ -1,8 +1,6 @@
 # ZZCircleProgress 基于Quartz2D和CABasicAnimation实现的带圆点圆形进度条
 
-draw rect实现的圆形进度条。可以使用部分圆弧当做整个进度条，并可以随意设置起始角度及减少的圆弧角度大小。</br>
-
-ZZCircleProgress部分特点
+## ZZCircleProgress部分特点
 * 通过`drawRect`以及`CALayer`结合`CABasicAnimation`、`CAKeyframeAnimation`实现的圆形进度条。
 * 可以自定义圆形进度条起始角度`startAngle`和圆形进度条缺少的角度`reduceAngle`。
 * 增加圆形进度条同步显示的小圆点图片`showPoint`，通过正弦余弦函数实现轨迹同步（两种方式），这个小圆点和进度条的同步显示是整个圆形进度条最麻烦的地方。
