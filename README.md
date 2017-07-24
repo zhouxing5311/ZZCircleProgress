@@ -1,29 +1,31 @@
-# ZZCircleProgress
+# ZZCircleProgress 基于Quartz2D和CABasicAnimation实现的带圆点圆形进度条
 
 draw rect实现的圆形进度条。可以使用部分圆弧当做整个进度条，并可以随意设置起始角度及减少的圆弧角度大小。</br>
 
-<h2>更新日志</h2>
-1.增加 increaseFromLast 参数，为YES则动画是从上次的数值开始动画，否则从头开始。</br>
-2.增加 notAnimated 参数，为YES则set数值的时候没有动画。</br>
-3.增加 forceRefresh 参数，为YES则set的值等于上次时也刷新动画。</br>
+ZZCircleProgress部分特点
+* 通过`drawRect`以及`CALayer`结合`CABasicAnimation`、`CAKeyframeAnimation`实现的圆形进度条。
+* 可以自定义圆形进度条起始角度`startAngle`和圆形进度条缺少的角度`reduceAngle`。
+* 增加圆形进度条同步显示的小圆点图片`showPoint`，通过正弦余弦函数实现轨迹同步（两种方式），这个小圆点和进度条的同步显示是整个圆形进度条最麻烦的地方。
+* 根据对应的进度在动画期间实时显示对应的进度百分比。`showProgressText`
+* 通过两种圆形进度条的简单实现方式希望给大家一些启发。
 
-<h2>使用方法:</h2>
-1.pod 'ZZCircleProgress'，搜索不到请pod setup一下。</br>
-2.或ZZCircleProgress文件夹拷贝至项目工程。</br>
-3.导入ZZCircleProgress.h。</br>
+## 使用方法: 
+* 选取对应的实现方式文件夹内容拷贝到项目中并导入对应头文件。
         
-<h3>初始化:</h3>
-```Objective-c
+### 初始化 
 
+**drawRect实现**
+
+```
 ZZCircleProgress *progressView = [[ZZCircleProgress alloc] initWithFrame:CGRectZero pathBackColor:[UIColor cyanColor] pathFillColor:[UIColor redColor] startAngle:0 strokeWidth:8];
-//    progressView.pathBackColor = [UIColor cyanColor];//线条背景色
-//    progressView.pathFillColor = [UIColor redColor];//线条填充色
-//    progressView.startAngle = 0;//圆弧开始角度，默认为-90°，即正上方
-//    progressView.reduceValue = 0;//整个圆弧减少的角度，默认为0
-//    progressView.strokeWidth = 8;//线宽，默认为10
+//progressView.pathBackColor = [UIColor cyanColor];//线条背景色
+//progressView.pathFillColor = [UIColor redColor];//线条填充色
+//progressView.startAngle = 0;//圆弧开始角度，默认为-90°，即正上方
+//progressView.reduceAngle = 0;//整个圆弧减少的角度，默认为0
+//progressView.strokeWidth = 8;//线宽，默认为10
 progressView.frame = CGRectMake(100, 100, 150, 150);
 progressView.increaseFromLast = NO;//为YES动画则从上次的progress开始，否则从头开始，默认为NO
-progressView.animationModel = CircleIncreaseSameTime;//不同的进度条动画时间相同
+progressView.animationModel = CircleIncreaseSameTime;//不同的进度条动画时间相同，CircleIncreaseByProgress进度越大时间越久
 progressView.showPoint = YES;//是否显示光标，默认为YES
 progressView.showProgressText = NO;//是否显示进度文本，默认为YES
 progressView.notAnimated = NO;//不开启动画，默认为NO
@@ -34,52 +36,29 @@ progressView.progress = 0.5;//设置完之后给progress的值
 
 ```
 
-<h3>特色功能:</h3>
-1.起始角度及缺少的圆弧角度可以自己指定。而且只需要传入具体的角度即可。如</br>
-```Objective-c
-circle1.startAngle = 90; //起点则为圆弧的正下方。
-circle1.reduceValue = 30; //360 - 30 = 330度即为整个进度条的全部，计算进度条位置会自动减去30度。
-```
+drawRect实现方法的好处是通过调用`setNeedsDisplay`方法就可以在修改完进度条的属性之后同步到进度条上，而且涉及到的对象较少。坏处就是当界面中存在大量进度条的时候大量的重绘工作和计时器的频繁调用会对CPU和GPU的性能造成一定的影响。因此实现开发中还是应该避免频繁使用drawRect的重绘操作。
 
-2.两种动画模式</br>
-```Objective-c
-circle1.animationModel = CircleIncreaseSameTime;// 不同进度动画时间相同
-circle1.animationModel = CircleIncreaseByProgress;// 进度越大时间越久
-```
 
-3.可以从上次的数值动画到当前set的数值，为YES则从上次数值开始</br>
-```Objective-c
-circle1.increaseFromLast = YES;
-```
+**核心动画实现**
 
-4.是否显示光标及进度文字。设置光标图片</br>
-```Objective-c
-circle1.showPoint = YES;
-circle1.showProgressText = YES;
-circle1.pointImage = [UIImage imageNamed:@"xxx"];
 ```
+ZZCACircleProgress *circle3 = [[ZZCACircleProgress alloc] initWithFrame:CGRectMake(xCrack, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:-255 strokeWidth:10];
+circle3.reduceAngle = 30;
+circle3.increaseFromLast = YES;
+circle3.pointImage.image = [UIImage imageNamed:@"test_point"];
+circle3.duration = 1.5;//动画时长
+circle3.prepareToShow = YES;//设置好属性，准备好显示了，显示之前必须调用一次
 
-5.动画开关
-```Objective-c
-circle1.notAnimated = YES;//关闭动画
+circle3.progress = 0.6;
+
 ```
+核心动画实现方法的好处是动画效果较drawRect实现方法实现出来的进度条动画效果更加平滑，但是在模拟器上使用`CADisplayLink`时因为模拟器的刷新率不高，所以导致每次进度文本都要落后于动画，建议在真机中测试。此方法实现的进度条要在设置完响应的属性之后调用`circle3.prepareToShow = YES;`方法才能正常显示，因为当调用prepareToShow的时候才去根据设置的属性创建相应的layer。
 
-<h2>效果展示:</h3>
+**PS**
+核心动画实现的时候进度条路径和小圆点的同步显示搞了大半天，一直不能同步显示！一直都是动画过程中两个位置会错开，后来发现其实是小圆点的核心动画的计算方式出了问题，导致小圆点的运动并不是匀速的。通过设置关键帧动画属性`pathAnimation.calculationMode = @"paced";`问题得以解决。
+
+### 效果展示:
 
 ![image](https://github.com/zhouxing5311/ZZCircleProgress/blob/master/ZZCircleProgress.gif) 
 
 
-一直想做一个实现和使用起来都比较简便的圆形进度条，但是网上一直没有找到合适的，因此打算参考别人的代码并加入自己的实现及优化，
-从而实现了现在的这个圆弧形进度条。项目开发中需要一个简单的进度条，但是搜索了很多一直没有找到适合我们项目的使用情况。主要是有两点问题。
-
-首先一个问题就是进度条的布局问题。网上找的一些实现有的必须在初始化的时候给进度条视图确定的坐标，从而才能保证布局的正确性，但是有时候我们并不能保证初始化的
-时候我们就已经知道进度条的坐标，因此就十分不方便。而目前的实现方法系统通过自动调用draw rect就会知道自己的坐标变化，从而能保证坐标计算的正确性。
-因此比较方便。就目前测试来看初始化的时候指定坐标或者是在之后指定坐标还是使用相对布局，暂时都没有什么问题。因此可以放心使用。
-
-还有个问题就是网上目前大部分的圆形进度条过度追求各种样式各种功能，从而造成代码阅读起来很费劲，难以找到我们最需要的关键实现信息。而我们实际开发中可能仅仅
-只需要某个简单的实现，使用时不会出现问题就好了。
-
-实现这个进度条的目的就是给开发者们一个简单的实现实例，从而可以方便的加入自己的想法及实现。目前只是一个圆弧形进度条加上一个光标，技术难点就是每次重绘的时候
-光标的位置比较难计算。要用到正弦余弦函数，然后再根据进度条半径及线宽计算出光标的x,y值。从而计算出小圆点的坐标。另一个难点就是每次重绘的时候要保证进度条和
-光标保持同步，因此只好用NSTimer定时调用progress值递增并重绘方法，从而保证每次进度条和光标增量相同，实现同步动画效果。
-                  

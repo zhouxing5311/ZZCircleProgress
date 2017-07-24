@@ -65,7 +65,7 @@
     _pathFillColor = CircleRGB(219, 184, 102);
     _strokeWidth = 10;//线宽默认为10
     _startAngle = -CircleDegreeToRadian(90);//圆起点位置
-    _reduceValue = CircleDegreeToRadian(0);//整个圆缺少的角度
+    _reduceAngle = CircleDegreeToRadian(0);//整个圆缺少的角度
     _animationModel = CircleIncreaseByProgress;//根据进度来
     _showPoint = YES;//小圆点
     _showProgressText = YES;//文字
@@ -86,12 +86,12 @@
     }
 }
 
-- (void)setReduceValue:(CGFloat)reduceValue {
-    if (_reduceValue != CircleDegreeToRadian(reduceValue)) {
-        if (reduceValue>=360) {
+- (void)setReduceAngle:(CGFloat)reduceAngle {
+    if (_reduceAngle != CircleDegreeToRadian(reduceAngle)) {
+        if (reduceAngle>=360) {
             return;
         }
-        _reduceValue = CircleDegreeToRadian(reduceValue);
+        _reduceAngle = CircleDegreeToRadian(reduceAngle);
         [self setNeedsDisplay];
     }
 }
@@ -144,8 +144,8 @@
     CGFloat maxWidth = self.frame.size.width<self.frame.size.height?self.frame.size.width:self.frame.size.height;
     CGPoint center = CGPointMake(maxWidth/2.0, maxWidth/2.0);
     CGFloat radius = maxWidth/2.0-_strokeWidth/2.0-1;//留出一像素，防止与边界相切的地方被切平
-    CGFloat endA = _startAngle + (CircleDegreeToRadian(360) - _reduceValue);//圆终点位置
-    CGFloat valueEndA = _startAngle + (CircleDegreeToRadian(360)-_reduceValue)*fakeProgress;  //数值终点位置
+    CGFloat endA = _startAngle + (CircleDegreeToRadian(360) - _reduceAngle);//圆终点位置
+    CGFloat valueEndA = _startAngle + (CircleDegreeToRadian(360)-_reduceAngle)*fakeProgress;  //数值终点位置
     
     //背景线
     UIBezierPath *basePath = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:_startAngle endAngle:endA clockwise:YES];

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D95A59811F25A29A00B463AA /* ZZCACircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = D95A59801F25A29A00B463AA /* ZZCACircleProgress.m */; };
+		D95A59841F25A2C100B463AA /* ZZCountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D95A59831F25A2C100B463AA /* ZZCountingLabel.m */; };
 		E021A04D1E0CB185009C67C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E021A04C1E0CB185009C67C7 /* main.m */; };
 		E021A0501E0CB185009C67C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E021A04F1E0CB185009C67C7 /* AppDelegate.m */; };
 		E021A0531E0CB185009C67C7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E021A0521E0CB185009C67C7 /* ViewController.m */; };
@@ -19,6 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D95A597F1F25A29A00B463AA /* ZZCACircleProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCACircleProgress.h; sourceTree = "<group>"; };
+		D95A59801F25A29A00B463AA /* ZZCACircleProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCACircleProgress.m; sourceTree = "<group>"; };
+		D95A59821F25A2C100B463AA /* ZZCountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCountingLabel.h; sourceTree = "<group>"; };
+		D95A59831F25A2C100B463AA /* ZZCountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCountingLabel.m; sourceTree = "<group>"; };
 		E021A0481E0CB185009C67C7 /* ZZCircleProgressDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZZCircleProgressDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E021A04C1E0CB185009C67C7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E021A04E1E0CB185009C67C7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -47,6 +53,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D95A59851F25A37C00B463AA /* ZZCACircleProgress */ = {
+			isa = PBXGroup;
+			children = (
+				D95A59821F25A2C100B463AA /* ZZCountingLabel.h */,
+				D95A59831F25A2C100B463AA /* ZZCountingLabel.m */,
+				D95A597F1F25A29A00B463AA /* ZZCACircleProgress.h */,
+				D95A59801F25A29A00B463AA /* ZZCACircleProgress.m */,
+			);
+			name = ZZCACircleProgress;
+			sourceTree = "<group>";
+		};
 		E021A03F1E0CB185009C67C7 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +112,7 @@
 				E021A0671E0CB215009C67C7 /* NSTimer+timerBlock.m */,
 				E021A0631E0CB20A009C67C7 /* ZZCircleProgress.h */,
 				E021A0641E0CB20A009C67C7 /* ZZCircleProgress.m */,
+				D95A59851F25A37C00B463AA /* ZZCACircleProgress */,
 				E021A0701E0CECFC009C67C7 /* ZZCircleProgress.bundle */,
 			);
 			path = ZZCircleProgress;
@@ -126,11 +144,12 @@
 		E021A0401E0CB185009C67C7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = zhouxing;
 				TargetAttributes = {
 					E021A0471E0CB185009C67C7 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = Z5Z8637SP3;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -174,6 +193,8 @@
 			files = (
 				E021A0651E0CB20A009C67C7 /* ZZCircleProgress.m in Sources */,
 				E021A0531E0CB185009C67C7 /* ViewController.m in Sources */,
+				D95A59811F25A29A00B463AA /* ZZCACircleProgress.m in Sources */,
+				D95A59841F25A2C100B463AA /* ZZCountingLabel.m in Sources */,
 				E021A0501E0CB185009C67C7 /* AppDelegate.m in Sources */,
 				E021A04D1E0CB185009C67C7 /* main.m in Sources */,
 				E021A0681E0CB215009C67C7 /* NSTimer+timerBlock.m in Sources */,
@@ -220,6 +241,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -242,7 +264,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -268,6 +290,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -284,7 +307,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -296,6 +319,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Z5Z8637SP3;
 				INFOPLIST_FILE = ZZCircleProgressDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -308,6 +332,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Z5Z8637SP3;
 				INFOPLIST_FILE = ZZCircleProgressDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
