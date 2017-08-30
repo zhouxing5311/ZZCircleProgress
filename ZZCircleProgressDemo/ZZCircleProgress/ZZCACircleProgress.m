@@ -40,6 +40,13 @@
     return self;
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self initialization];
+    //开始展示
+    self.prepareToShow = YES;
+}
+
 //初始化
 - (instancetype)initWithFrame:(CGRect)frame
                 pathBackColor:(UIColor *)pathBackColor

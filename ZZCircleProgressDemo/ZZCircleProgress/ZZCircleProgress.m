@@ -38,6 +38,11 @@
     return self;
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self initialization];
+}
+
 //初始化
 - (instancetype)initWithFrame:(CGRect)frame
                 pathBackColor:(UIColor *)pathBackColor
