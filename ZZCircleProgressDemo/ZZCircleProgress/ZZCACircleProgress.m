@@ -99,7 +99,7 @@
         _backLayer.lineCap = @"round";
         
         UIBezierPath *backCirclePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(_realWidth/2.0, _realWidth/2.0) radius:_realWidth/2.0 startAngle:_startAngle endAngle:(2*M_PI-_reduceAngle+_startAngle) clockwise:YES];
-        self.backLayer.path = backCirclePath.CGPath;
+        _backLayer.path = backCirclePath.CGPath;
     }
     return _backLayer;
 }
@@ -176,14 +176,12 @@
 - (void)setPathBackColor:(UIColor *)pathBackColor {
     if (_pathBackColor != pathBackColor) {
         _pathBackColor = pathBackColor;
-        self.backLayer.strokeColor = _pathBackColor.CGColor;;
     }
 }
 
 - (void)setPathFillColor:(UIColor *)pathFillColor {
     if (_pathFillColor != pathFillColor) {
         _pathFillColor = pathFillColor;
-        self.progressLayer.strokeColor = _pathFillColor.CGColor;
     }
 }
 
