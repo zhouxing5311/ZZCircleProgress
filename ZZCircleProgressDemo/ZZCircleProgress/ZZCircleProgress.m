@@ -66,8 +66,8 @@
 //初始化数据
 - (void)initialization {
     self.backgroundColor = [UIColor clearColor];
-    _pathBackColor = CircleRGB(204, 204, 204);
-    _pathFillColor = CircleRGB(219, 184, 102);
+    _pathBackColor = [UIColor lightGrayColor];
+    _pathFillColor = [UIColor redColor];
     _strokeWidth = 10;//线宽默认为10
     _startAngle = -CircleDegreeToRadian(90);//圆起点位置
     _reduceAngle = CircleDegreeToRadian(0);//整个圆缺少的角度
@@ -75,6 +75,7 @@
     _showPoint = YES;//小圆点
     _showProgressText = YES;//文字
     _forceRefresh = NO;//一直刷新动画
+    _duration = 2.0;//默认动画时长
     
     fakeProgress = 0.0;//用来逐渐增加直到等于progress的值
     //获取图片资源
@@ -226,12 +227,12 @@
     }
     
     //设置每次增加的数值
-    CGFloat sameTimeIncreaseValue = _increaseFromLast==YES?fabs(fakeProgress-_progress):_progress;
-    CGFloat defaultIncreaseValue = isReverse==YES?-0.01:0.01;
+    CGFloat allNumber = _duration/0.01;
+    CGFloat defaultIncreaseValue = isReverse==YES?-fabs(fakeProgress-_progress)/allNumber:fabs(fakeProgress-_progress)/allNumber;
     
     __weak typeof(self) weakSelf = self;
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.005 block:^{
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.01 block:^{
         __strong typeof(weakSelf)strongSelf = weakSelf;
         
         //反方向动画
@@ -256,9 +257,9 @@
         
         //数值增加或减少
         if (_animationModel == CircleIncreaseSameTime) {
-            fakeProgress += defaultIncreaseValue*sameTimeIncreaseValue;//不同进度动画时间基本相同
+            fakeProgress += defaultIncreaseValue;//不同进度动画时间相同
         } else {
-            fakeProgress += defaultIncreaseValue;//进度越大动画时间越长。
+            fakeProgress += isReverse==YES?-1.0/allNumber:1.0/allNumber;//进度越大动画时间越长。
         }
         
     } repeats:YES];

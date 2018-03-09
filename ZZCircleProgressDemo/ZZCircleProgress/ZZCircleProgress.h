@@ -33,6 +33,9 @@ typedef NS_ENUM(NSInteger, CircleIncreaseModel) {
 
 //动画模式
 @property (nonatomic, assign) CircleIncreaseModel animationModel;/**<动画模式*/
+//动画时间
+@property (nonatomic, assign) CGFloat duration;/**<动画时长(CircleIncreaseByProgress时进度为1时才能达到动画时长)*/
+
 
 //进度
 @property (nonatomic, assign) CGFloat progress;/**<进度 0-1 */

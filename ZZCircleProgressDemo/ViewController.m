@@ -45,14 +45,16 @@
     CGFloat itemWidth = 150;
     
 #pragma drawRect实现方式
-    //默认状态
+    //无小圆点、进度越大动画时间越长、进度从上次增长
     circle1 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack, yCrack, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:0 strokeWidth:10];
+    circle1.increaseFromLast = YES;
     circle1.progress = 0.6;
     [self.view addSubview:circle1];
     
     //无小圆点、同动画时间
     circle2 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack*2+itemWidth, yCrack, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:0 strokeWidth:10];
     circle2.showPoint = NO;
+    circle2.duration = 3;
     circle2.animationModel = CircleIncreaseSameTime;
     circle2.progress = 0.6;
     [self.view addSubview:circle2];
@@ -80,7 +82,7 @@
     circle3.reduceAngle = 30;
     circle3.increaseFromLast = YES;
     circle3.pointImage.image = [UIImage imageNamed:@"test_point"];
-    circle3.duration = 1.5;//动画时长
+    circle3.duration = 2;//动画时长
     circle3.prepareToShow = YES;//设置好属性，准备好显示了，显示之前必须调用一次
     
     circle3.progress = 0.6;
@@ -89,7 +91,7 @@
     //隐藏文字
     circle4 = [[ZZCACircleProgress alloc] initWithFrame:CGRectMake(xCrack*2+itemWidth, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:0 strokeWidth:10];
     circle4.showProgressText = NO;
-    circle4.duration = 1.0;//动画时长
+    circle4.duration = 2;//动画时长
     
     circle4.prepareToShow = YES;//设置好属性，准备好显示了，显示之前必须调用一次
     circle4.progress = 0.3;
@@ -98,8 +100,21 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
     circle1.progress = arc4random()%101/100.0;
     circle2.progress = arc4random()%101/100.0;
+    
+    //动态设置属性(背景色、填充色、减少角度)
+    circle3.pathBackColor = ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255);
+    circle3.pathFillColor = ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255);
+    circle3.reduceAngle = arc4random()%40;
+    
+    //动态设置属性(填充色、开始角度、线宽)
+    circle4.pathFillColor = ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255);
+    circle4.startAngle = arc4random()%50;
+    circle4.strokeWidth = arc4random()%40;
+
+    //状态变更完后设置进度
     circle3.progress = arc4random()%101/100.0;
     circle4.progress = arc4random()%101/100.0;
 }
