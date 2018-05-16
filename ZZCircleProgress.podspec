@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ZZCircleProgress"
-  s.version      = "0.1.0"
+  s.version      = "0.2.0"
   s.summary      = "The most easy way for circle progress. You can change anything you can see!"
   s.homepage     = "https://github.com/zhouxing5311/ZZCircleProgress"
   s.license      = "MIT"

@@ -1,4 +1,12 @@
-# ZZCircleProgress 基于Quartz2D和CABasicAnimation实现的带圆点圆形进度条
+# ZZCircleProgress
+
+[![Language](https://img.shields.io/badge/Language-%20Objective--C%20-orange.svg)](https://img.shields.io/badge/Language-%20Objective--C%20-orange.svg)
+![Pod Version](https://img.shields.io/cocoapods/v/ZZCircleProgress.svg?style=flat)
+![Pod Platform](https://img.shields.io/cocoapods/p/ZZCircleProgress.svg?style=flat)
+![Pod License](https://img.shields.io/cocoapods/l/ZZCircleProgress.svg?style=flat)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
+`ZZCircleProgress` 是一款可以高度自定义的环形进度条。你能看到的任何地方都可以进行自定义，包括圆环的开始角度、缺少角度、以及动画时长、动画刷新方式等等。而且相关的属性设置支持动态化。
 
 ## ZZCircleProgress部分特点
 * 通过`drawRect`以及`CALayer`结合`CABasicAnimation`、`CAKeyframeAnimation`实现的圆形进度条。
