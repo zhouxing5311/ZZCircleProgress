@@ -8,116 +8,78 @@
 
 #import "ViewController.h"
 #import "ZZCircleProgress.h"
-#import "ZZCACircleProgress.h"
-
-#define ZZRGB(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 
 @interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet ZZCircleProgress *progressView;
+@property (weak, nonatomic) IBOutlet UILabel *startAngleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *reduceAngleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *strokeWidthLabel;
+@property (weak, nonatomic) IBOutlet UILabel *durationLabel;
 
 @end
 
 @implementation ViewController
-{
-    ZZCircleProgress *circle1;
-    ZZCircleProgress *circle2;
-//    ZZCircleProgress *circle3;
-//    ZZCircleProgress *circle4;
-    
-    ZZCACircleProgress *circle3;
-    ZZCACircleProgress *circle4;
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    [self initCircles];
-    
 }
 
-//初始化
-- (void)initCircles {
+//改变开始角度
+- (IBAction)startAngleChanged:(UISlider *)sender {
     
-    CGFloat xCrack = ([UIScreen mainScreen].bounds.size.width-150*2)/3.0;
-    CGFloat yCrack = ([UIScreen mainScreen].bounds.size.height-150*2)/3.0;
-    CGFloat itemWidth = 150;
-    
-#pragma drawRect实现方式
-    //无小圆点、进度越大动画时间越长、进度从上次增长
-    circle1 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack, yCrack, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:0 strokeWidth:10];
-    circle1.increaseFromLast = YES;
-    circle1.progress = 0.6;
-    [self.view addSubview:circle1];
-    
-    //无小圆点、同动画时间
-    circle2 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack*2+itemWidth, yCrack, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:0 strokeWidth:10];
-    circle2.showPoint = NO;
-    circle2.duration = 3;
-    circle2.animationModel = CircleIncreaseSameTime;
-    circle2.progress = 0.6;
-    [self.view addSubview:circle2];
-    
-//    //自定义起始角度、自定义小圆点、动画从上次数值开始
-//    circle3 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:-255 strokeWidth:10];
-//    circle3.reduceValue = 30;
-//    circle3.increaseFromLast = YES;
-//    circle3.pointImage = [UIImage imageNamed:@"test_point"];
-//    circle3.progress = 0.6;
-//    [self.view addSubview:circle3];
-//    
-//    //同动画时间、隐藏文字
-//    circle4 = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(xCrack*2+itemWidth, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:0 strokeWidth:10];
-//    circle4.animationModel = CircleIncreaseSameTime;
-//    circle4.showProgressText = NO;
-//    circle4.progress = 0.3;
-//    [self.view addSubview:circle4];
-    
-    
-    
-#pragma 核心动画实现方式
-    //自定义起始角度、自定义小圆点
-    circle3 = [[ZZCACircleProgress alloc] initWithFrame:CGRectMake(xCrack, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:-255 strokeWidth:10];
-    circle3.reduceAngle = 30;
-    circle3.increaseFromLast = YES;
-    circle3.pointImage.image = [UIImage imageNamed:@"test_point"];
-    circle3.duration = 2;//动画时长
-    circle3.prepareToShow = YES;//设置好属性，准备好显示了，显示之前必须调用一次
-    
-    circle3.progress = 0.6;
-    [self.view addSubview:circle3];
-    
-    //隐藏文字
-    circle4 = [[ZZCACircleProgress alloc] initWithFrame:CGRectMake(xCrack*2+itemWidth, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:0 strokeWidth:10];
-    circle4.showProgressText = NO;
-    circle4.duration = 2;//动画时长
-    
-    circle4.prepareToShow = YES;//设置好属性，准备好显示了，显示之前必须调用一次
-    circle4.progress = 0.3;
-    
-    [self.view addSubview:circle4];
+    self.progressView.startAngle = sender.value;
+    self.startAngleLabel.text = [NSString stringWithFormat:@"%d",(int)sender.value];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//改变减少角度
+- (IBAction)reduceAngleChanged:(UISlider *)sender {
     
-    circle1.progress = arc4random()%101/100.0;
-    circle2.progress = arc4random()%101/100.0;
-    
-    //动态设置属性(背景色、填充色、减少角度)
-    circle3.pathBackColor = ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255);
-    circle3.pathFillColor = ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255);
-    circle3.reduceAngle = arc4random()%40;
-    
-    //动态设置属性(填充色、开始角度、线宽)
-    circle4.pathFillColor = ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255);
-    circle4.startAngle = arc4random()%50;
-    circle4.strokeWidth = arc4random()%40;
-
-    //状态变更完后设置进度
-    circle3.progress = arc4random()%101/100.0;
-    circle4.progress = arc4random()%101/100.0;
+    self.progressView.reduceAngle = sender.value;
+    self.reduceAngleLabel.text = [NSString stringWithFormat:@"%d",(int)sender.value];
 }
 
+//改变线宽
+- (IBAction)srokeWidthChanged:(UISlider *)sender {
+    
+    self.progressView.strokeWidth = sender.value;
+    self.strokeWidthLabel.text = [NSString stringWithFormat:@"%d",(int)sender.value];
+}
+
+//改变动画时长
+- (IBAction)animationDurationChanged:(UISlider *)sender {
+    
+    self.progressView.duration = sender.value;
+    self.durationLabel.text = [NSString stringWithFormat:@"%.1f",sender.value];
+}
+
+
+//是否显示圆点
+- (IBAction)showPointChanged:(UISwitch *)sender {
+    
+    self.progressView.showPoint = sender.isOn;
+}
+
+//是否显示进度文本
+- (IBAction)showTextChanged:(UISwitch *)sender {
+    
+    self.progressView.showProgressText = sender.isOn;
+}
+
+//进度是否从头开始
+- (IBAction)increaseFromLastChanged:(UISwitch *)sender {
+    
+    self.progressView.increaseFromLast = sender.isOn;
+}
+
+//生成随机进度
+- (IBAction)createProgress:(id)sender {
+    
+    self.progressView.progress = arc4random()%101/100.0;
+    
+    //随机填充色
+    self.progressView.pathFillColor = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
+}
 
 @end

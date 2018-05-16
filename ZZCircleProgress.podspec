@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 
   s.name         = "ZZCircleProgress"
-  s.version      = "0.0.2"
-  s.summary      = "The most easy way for circle progress. You can change the reduce angle and decide if show the cursor or not"
+  s.version      = "0.1.0"
+  s.summary      = "The most easy way for circle progress. You can change anything you can see!"
   s.homepage     = "https://github.com/zhouxing5311/ZZCircleProgress"
   s.license      = "MIT"
   s.author       = { "zhouxing5311" => "1098660224@qq.com" }

@@ -7,24 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D95A59811F25A29A00B463AA /* ZZCACircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = D95A59801F25A29A00B463AA /* ZZCACircleProgress.m */; };
-		D95A59841F25A2C100B463AA /* ZZCountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D95A59831F25A2C100B463AA /* ZZCountingLabel.m */; };
+		D973DE9D20ABD5E1004A73DE /* ZZCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = D973DE9C20ABD5E1004A73DE /* ZZCircleProgress.m */; };
+		D973DEA120ABD66D004A73DE /* ZZCountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D973DE9E20ABD66C004A73DE /* ZZCountingLabel.m */; };
+		D973DEA220ABD66D004A73DE /* ZZCircleProgress.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D973DE9F20ABD66C004A73DE /* ZZCircleProgress.bundle */; };
 		E021A04D1E0CB185009C67C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E021A04C1E0CB185009C67C7 /* main.m */; };
 		E021A0501E0CB185009C67C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E021A04F1E0CB185009C67C7 /* AppDelegate.m */; };
 		E021A0531E0CB185009C67C7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E021A0521E0CB185009C67C7 /* ViewController.m */; };
 		E021A0561E0CB185009C67C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E021A0541E0CB185009C67C7 /* Main.storyboard */; };
 		E021A0581E0CB185009C67C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E021A0571E0CB185009C67C7 /* Assets.xcassets */; };
 		E021A05B1E0CB185009C67C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E021A0591E0CB185009C67C7 /* LaunchScreen.storyboard */; };
-		E021A0651E0CB20A009C67C7 /* ZZCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E021A0641E0CB20A009C67C7 /* ZZCircleProgress.m */; };
-		E021A0681E0CB215009C67C7 /* NSTimer+timerBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = E021A0671E0CB215009C67C7 /* NSTimer+timerBlock.m */; };
-		E021A0711E0CECFC009C67C7 /* ZZCircleProgress.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E021A0701E0CECFC009C67C7 /* ZZCircleProgress.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D95A597F1F25A29A00B463AA /* ZZCACircleProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCACircleProgress.h; sourceTree = "<group>"; };
-		D95A59801F25A29A00B463AA /* ZZCACircleProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCACircleProgress.m; sourceTree = "<group>"; };
-		D95A59821F25A2C100B463AA /* ZZCountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCountingLabel.h; sourceTree = "<group>"; };
-		D95A59831F25A2C100B463AA /* ZZCountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCountingLabel.m; sourceTree = "<group>"; };
+		D973DE9B20ABD5E1004A73DE /* ZZCircleProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZCircleProgress.h; sourceTree = "<group>"; };
+		D973DE9C20ABD5E1004A73DE /* ZZCircleProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZCircleProgress.m; sourceTree = "<group>"; };
+		D973DE9E20ABD66C004A73DE /* ZZCountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCountingLabel.m; sourceTree = "<group>"; };
+		D973DE9F20ABD66C004A73DE /* ZZCircleProgress.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZZCircleProgress.bundle; sourceTree = "<group>"; };
+		D973DEA020ABD66C004A73DE /* ZZCountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCountingLabel.h; sourceTree = "<group>"; };
 		E021A0481E0CB185009C67C7 /* ZZCircleProgressDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZZCircleProgressDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E021A04C1E0CB185009C67C7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E021A04E1E0CB185009C67C7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -35,11 +34,6 @@
 		E021A0571E0CB185009C67C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E021A05A1E0CB185009C67C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E021A05C1E0CB185009C67C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E021A0631E0CB20A009C67C7 /* ZZCircleProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCircleProgress.h; sourceTree = "<group>"; };
-		E021A0641E0CB20A009C67C7 /* ZZCircleProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCircleProgress.m; sourceTree = "<group>"; };
-		E021A0661E0CB215009C67C7 /* NSTimer+timerBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+timerBlock.h"; sourceTree = "<group>"; };
-		E021A0671E0CB215009C67C7 /* NSTimer+timerBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+timerBlock.m"; sourceTree = "<group>"; };
-		E021A0701E0CECFC009C67C7 /* ZZCircleProgress.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZZCircleProgress.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,17 +47,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D95A59851F25A37C00B463AA /* ZZCACircleProgress */ = {
-			isa = PBXGroup;
-			children = (
-				D95A59821F25A2C100B463AA /* ZZCountingLabel.h */,
-				D95A59831F25A2C100B463AA /* ZZCountingLabel.m */,
-				D95A597F1F25A29A00B463AA /* ZZCACircleProgress.h */,
-				D95A59801F25A29A00B463AA /* ZZCACircleProgress.m */,
-			);
-			name = ZZCACircleProgress;
-			sourceTree = "<group>";
-		};
 		E021A03F1E0CB185009C67C7 = {
 			isa = PBXGroup;
 			children = (
@@ -108,12 +91,11 @@
 		E021A0621E0CB1F3009C67C7 /* ZZCircleProgress */ = {
 			isa = PBXGroup;
 			children = (
-				E021A0661E0CB215009C67C7 /* NSTimer+timerBlock.h */,
-				E021A0671E0CB215009C67C7 /* NSTimer+timerBlock.m */,
-				E021A0631E0CB20A009C67C7 /* ZZCircleProgress.h */,
-				E021A0641E0CB20A009C67C7 /* ZZCircleProgress.m */,
-				D95A59851F25A37C00B463AA /* ZZCACircleProgress */,
-				E021A0701E0CECFC009C67C7 /* ZZCircleProgress.bundle */,
+				D973DE9B20ABD5E1004A73DE /* ZZCircleProgress.h */,
+				D973DE9C20ABD5E1004A73DE /* ZZCircleProgress.m */,
+				D973DEA020ABD66C004A73DE /* ZZCountingLabel.h */,
+				D973DE9E20ABD66C004A73DE /* ZZCountingLabel.m */,
+				D973DE9F20ABD66C004A73DE /* ZZCircleProgress.bundle */,
 			);
 			path = ZZCircleProgress;
 			sourceTree = "<group>";
@@ -178,8 +160,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E021A05B1E0CB185009C67C7 /* LaunchScreen.storyboard in Resources */,
-				E021A0711E0CECFC009C67C7 /* ZZCircleProgress.bundle in Resources */,
 				E021A0581E0CB185009C67C7 /* Assets.xcassets in Resources */,
+				D973DEA220ABD66D004A73DE /* ZZCircleProgress.bundle in Resources */,
 				E021A0561E0CB185009C67C7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,13 +173,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E021A0651E0CB20A009C67C7 /* ZZCircleProgress.m in Sources */,
+				D973DE9D20ABD5E1004A73DE /* ZZCircleProgress.m in Sources */,
 				E021A0531E0CB185009C67C7 /* ViewController.m in Sources */,
-				D95A59811F25A29A00B463AA /* ZZCACircleProgress.m in Sources */,
-				D95A59841F25A2C100B463AA /* ZZCountingLabel.m in Sources */,
 				E021A0501E0CB185009C67C7 /* AppDelegate.m in Sources */,
 				E021A04D1E0CB185009C67C7 /* main.m in Sources */,
-				E021A0681E0CB215009C67C7 /* NSTimer+timerBlock.m in Sources */,
+				D973DEA120ABD66D004A73DE /* ZZCountingLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +303,7 @@
 				INFOPLIST_FILE = ZZCircleProgressDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhouxing.ZZCircleProgressDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhouxing.ZZCircleProgressDemo.zz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -336,7 +316,7 @@
 				INFOPLIST_FILE = ZZCircleProgressDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhouxing.ZZCircleProgressDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhouxing.ZZCircleProgressDemo.zz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
