@@ -1,77 +1,82 @@
 # ZZCircleProgress
 
+<p>
+<img src="ZZCircleProgress_logo.png" title="ZZCircleProgress_logo" float=left>
+</p>
+
 [![Language](https://img.shields.io/badge/Language-%20Objective--C%20-orange.svg)](https://img.shields.io/badge/Language-%20Objective--C%20-orange.svg)
 ![Pod Version](https://img.shields.io/cocoapods/v/ZZCircleProgress.svg?style=flat)
 ![Pod Platform](https://img.shields.io/cocoapods/p/ZZCircleProgress.svg?style=flat)
 ![Pod License](https://img.shields.io/cocoapods/l/ZZCircleProgress.svg?style=flat)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-`ZZCircleProgress` 是一款可以高度自定义的环形进度条。你能看到的任何地方都可以进行自定义，包括圆环的开始角度、缺少角度、以及动画时长、动画刷新方式等等。而且相关的属性设置支持动态化。
+`ZZCircleProgress` 是一款可以高度自定义的环形进度条。你能看到的任何地方都可以进行自定义，包括圆环的开始角度、缺少角度、以及动画时长、动画刷新方式等等。而且相关的属性设置支持动态化，你可以在进度条加载完成之后随时更改他们的属性。
 
-## ZZCircleProgress部分特点
-* 通过`drawRect`以及`CALayer`结合`CABasicAnimation`、`CAKeyframeAnimation`实现的圆形进度条。
-* 可以自定义圆形进度条起始角度`startAngle`和圆形进度条缺少的角度`reduceAngle`。
-* 增加圆形进度条同步显示的小圆点图片`showPoint`，通过正弦余弦函数实现轨迹同步（两种方式），这个小圆点和进度条的同步显示是整个圆形进度条最麻烦的地方。
-* 根据对应的进度在动画期间实时显示对应的进度百分比。`showProgressText`
-* 通过两种圆形进度条的实现方式希望给大家一些启发。
+## 特点
+
+- [x] 可以自定义所有东西。
+- [x] 采用`CAAnimation`方式实现进度动画，保证了进度条的性能及流畅度。
+- [x] 设置开始角度及减少角度时直接传入对应的角度即可(0-360)，无需进行转换。
+- [x] 可以在进度条初始化完成之后再次更改进度条的起始角度等属性。
+- [x] 可以通过storyboard、xib及纯代码方式加载。
+- [x] 支持cocoapods。
+- [x] 支持iOS7.0及之后的版本。
+
+## 安装方式
+
+### 通过CocoaPods。
+```
+pod 'ZZCircleProgress'
+```
+或
+```
+pod 'ZZCircleProgress', '~> 0.2.0'
+```
+由于上传到CocoaPods没多久。可能需要`pod setup`初始化一下。
+
+
+## 使用方法
+
+### 通过storyboard或xib方式加载。
+拖入一个UIView到故事板中，并指定Class为`ZZCircleProgress`即可。
+
+### 纯代码方式加载。
+```objective-c
+ZZCircleProgress *progressView = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(100, 100, 100, 100) pathBackColor:[UIColor lightGrayColor] pathFillColor:[UIColor redColor] startAngle:0 strokeWidth:20];
+progressView.prepareToShow = YES;//设置完进度条相关属性后需要设置此属性为YES，否则设置progress之前进度条不显示。
+[self.view addSubview:progressView];
+```
+
+初始化提供了设置坐标、线条背景色、线条填充色、开始角度及线条宽度的方法。可以设置相关属性如下。
+
+```objective-c
+progressView.reduceAngle = 30;//整合进度条缺少30度
+progressView.pointImage.image = [UIImage imageNamed:@"test"];//设置小圆点图片
+progressView.duration = 2.0;//动画时长。默认为1.5
+progressView.showPoint = NO;//是否显示默认小圆点。默认为YES
+progressView.showProgressText = NO;//是否显示默认进度文本。默认为YES
+progressView.increaseFromLast = YES;//进度条动画是否从上次进度开始动画。默认为NO
+progressView.progressLabel......//progressLabel集成自UILabel。属性随意设置
+```
+
+设置完相关属性记得调用`progressView.prepareToShow = YES;`。
+
+
+## 效果展示
+
+![image](https://github.com/zhouxing5311/ZZCircleProgress/blob/master/ZZCircleProgress_demo.gif) 
 
 
 ## 更新历史:
+* 2018.05.16：发布0.1.0版本及0.2.0版本到cocoapods。(0.1.0版本包括以前draw rect实现的进度条)
 * 2018.03.09：ZZCACircleProgress支持属性动态修改，具体实例见demo，ZZCircleProgress增加动画时长属性。
 * 2017.11.24：懒加载提前调用问题修复
 * 2017.08.30：修复xib方式导入不显示的问题
 
 
-## 使用方法: 
-* 选取对应的实现方式文件夹内容拷贝到项目中并导入对应头文件。
-        
-### 初始化 
+## 问题反馈
 
-**drawRect实现**
+如果使用过程发现什么问题可以随时联系我QQ：1098660224，微信：zhouxing5311或提issues。
 
-```
-ZZCircleProgress *progressView = [[ZZCircleProgress alloc] initWithFrame:CGRectZero pathBackColor:[UIColor cyanColor] pathFillColor:[UIColor redColor] startAngle:0 strokeWidth:8];
-//progressView.pathBackColor = [UIColor cyanColor];//线条背景色
-//progressView.pathFillColor = [UIColor redColor];//线条填充色
-//progressView.startAngle = 0;//圆弧开始角度，默认为-90°，即正上方
-//progressView.reduceAngle = 0;//整个圆弧减少的角度，默认为0
-//progressView.strokeWidth = 8;//线宽，默认为10
-progressView.frame = CGRectMake(100, 100, 150, 150);
-progressView.increaseFromLast = NO;//为YES动画则从上次的progress开始，否则从头开始，默认为NO
-progressView.animationModel = CircleIncreaseSameTime;//不同的进度条动画时间相同，CircleIncreaseByProgress进度越大时间越久
-progressView.showPoint = YES;//是否显示光标，默认为YES
-progressView.showProgressText = NO;//是否显示进度文本，默认为YES
-progressView.notAnimated = NO;//不开启动画，默认为NO
-progressView.forceRefresh = YES;//是否在set的值等于上次值时同样刷新动画，默认为NO
-
-progressView.progress = 0.5;//设置完之后给progress的值
-[self.view addSubview:progressView];
-
-```
-
-drawRect实现方法的好处是通过调用`setNeedsDisplay`方法就可以在修改完进度条的属性之后同步到进度条上，而且涉及到的对象较少。坏处就是当界面中存在大量进度条的时候大量的重绘工作和计时器的频繁调用会对CPU和GPU的性能造成一定的影响。因此实际开发中还是应该避免频繁使用drawRect的重绘操作。
-
-
-**核心动画实现**
-
-```
-ZZCACircleProgress *circle3 = [[ZZCACircleProgress alloc] initWithFrame:CGRectMake(xCrack, yCrack*2+itemWidth, itemWidth, itemWidth) pathBackColor:nil pathFillColor:ZZRGB(arc4random()%255, arc4random()%255, arc4random()%255) startAngle:-255 strokeWidth:10];
-circle3.reduceAngle = 30;
-circle3.increaseFromLast = YES;
-circle3.pointImage.image = [UIImage imageNamed:@"test_point"];
-circle3.duration = 1.5;//动画时长
-circle3.prepareToShow = YES;//设置好属性，准备好显示了，显示之前必须调用一次
-
-circle3.progress = 0.6;
-
-```
-核心动画实现方法的好处是动画效果较drawRect实现方法实现出来的进度条动画效果更加平滑，但是在模拟器上使用`CADisplayLink`时因为模拟器的刷新率不高，所以导致每次进度文本都要落后于动画，建议在真机中测试。此方法实现的进度条要在设置完响应的属性之后调用`circle3.prepareToShow = YES;`方法才能正常显示，因为当调用prepareToShow的时候才去根据设置的属性创建相应的layer。
-
-**PS**
-核心动画实现的时候进度条路径和小圆点的同步显示搞了大半天，一直不能同步显示！一直都是动画过程中两个位置会错开，后来发现其实是小圆点的核心动画的计算方式出了问题，导致小圆点的运动并不是匀速的。通过设置关键帧动画属性`pathAnimation.calculationMode = @"paced";`问题得以解决。
-
-### 效果展示:
-
-![image](https://github.com/zhouxing5311/ZZCircleProgress/blob/master/ZZCircleProgress.gif) 
 
 

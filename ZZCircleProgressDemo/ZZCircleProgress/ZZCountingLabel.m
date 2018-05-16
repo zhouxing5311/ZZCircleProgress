@@ -66,7 +66,12 @@
     }
     
     CADisplayLink *playLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(countingAction)];
-    playLink.preferredFramesPerSecond = _displayPerSecond;
+    if (@available(iOS 10.0, *)) {
+        playLink.preferredFramesPerSecond = _displayPerSecond;
+    } else {
+        playLink.frameInterval = 60/_displayPerSecond==0?1:_displayPerSecond;
+    }
+    
     [playLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     [playLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:UITrackingRunLoopMode];
     self.playLink = playLink;
