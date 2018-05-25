@@ -30,7 +30,7 @@ pod 'ZZCircleProgress'
 ```
 或
 ```
-pod 'ZZCircleProgress', '~> 0.2.0'
+pod 'ZZCircleProgress', '~> 0.2.1'
 ```
 由于上传到CocoaPods没多久。可能需要`pod setup`初始化一下。
 
@@ -68,6 +68,7 @@ progressView.progressLabel......//progressLabel集成自UILabel。属性随意�
 
 
 ## 更新历史:
+* 2018.05.26：解决iOS10以下设备可能报错的问题。frameInterval和preferredFramesPerSecond进行版本判断。
 * 2018.05.16：发布0.1.0版本及0.2.0版本到cocoapods。(0.1.0版本包括以前draw rect实现的进度条)
 * 2018.03.09：ZZCACircleProgress支持属性动态修改，具体实例见demo，ZZCircleProgress增加动画时长属性。
 * 2017.11.24：懒加载提前调用问题修复

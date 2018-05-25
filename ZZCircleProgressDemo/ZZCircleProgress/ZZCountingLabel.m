@@ -69,7 +69,7 @@
     if (@available(iOS 10.0, *)) {
         playLink.preferredFramesPerSecond = _displayPerSecond;
     } else {
-        playLink.frameInterval = 60/_displayPerSecond==0?1:_displayPerSecond;
+        playLink.frameInterval = 60/(_displayPerSecond==0?1:_displayPerSecond);
     }
     
     [playLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
