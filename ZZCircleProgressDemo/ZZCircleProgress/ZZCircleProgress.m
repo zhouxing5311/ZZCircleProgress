@@ -280,14 +280,7 @@
     
     //准备好显示
     self.prepareToShow = YES;
-    
-    _progress = progress;
-    if (_progress < 0) {
-        _progress = 0;
-    }
-    if (_progress > 1) {
-        _progress = 1;
-    }
+    _progress = MAX(MIN(1, progress), 0);
     
     [self startAnimation];
 }
@@ -321,7 +314,7 @@
         }
         UIBezierPath *imagePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(_realWidth/2.0, _realWidth/2.0) radius:_radius startAngle:_increaseFromLast==YES?(2*M_PI-_reduceAngle)*_lastProgress+_startAngle:_startAngle endAngle:(2*M_PI-_reduceAngle)*_progress+_startAngle clockwise:!clockwise];
         pointAnimation.path = imagePath.CGPath;
-        [self.pointImage.layer addAnimation:pointAnimation forKey:nil];
+        [self.pointImage.layer addAnimation:pointAnimation forKey:@"pointAnimation"];
         self.lastPointAnimation = pointAnimation;
         
         if (!_increaseFromLast && _progress == 0.0) {
@@ -349,7 +342,7 @@
 //监听动画结束
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     
-    if (flag && anim == _lastPointAnimation) {
+    if (flag && anim == [self.pointImage.layer valueForKey:@"pointAnimation"]) {
         [self updatePointPosition];
     }
 }
