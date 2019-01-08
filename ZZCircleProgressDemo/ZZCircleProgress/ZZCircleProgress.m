@@ -40,8 +40,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self initialization];
-    //开始展示
-    self.prepareToShow = YES;
 }
 
 //初始化
@@ -60,7 +58,6 @@
         }
         _startAngle = ZZCircleDegreeToRadian(startAngle);
         _strokeWidth = strokeWidth;
-        
     }
     return self;
 }
@@ -79,24 +76,18 @@
     _showPoint = YES;//小圆点
     _showProgressText = YES;//文字
     
-    _realWidth = ZZCircleSelfWidth>ZZCircleSelfHeight?ZZCircleSelfHeight:ZZCircleSelfWidth;
-    _radius = _realWidth/2.0 - _strokeWidth/2.0;
+    //初始化layer
+    [self initSubviews];
 }
 
 #pragma Get
 - (CAShapeLayer *)backLayer {
     if (!_backLayer) {
         _backLayer = [CAShapeLayer layer];
-        
-        _backLayer.frame = CGRectMake((ZZCircleSelfWidth-_realWidth)/2.0, (ZZCircleSelfHeight-_realWidth)/2.0, _realWidth, _realWidth);
-        
         _backLayer.fillColor = [UIColor clearColor].CGColor;//填充色
         _backLayer.lineWidth = _strokeWidth;
         _backLayer.strokeColor = _pathBackColor.CGColor;
         _backLayer.lineCap = @"round";
-        
-        UIBezierPath *backCirclePath = [self getNewBezierPath];
-        _backLayer.path = backCirclePath.CGPath;
     }
     return _backLayer;
 }
@@ -104,16 +95,10 @@
 - (CAShapeLayer *)progressLayer {
     if (!_progressLayer) {
         _progressLayer = [CAShapeLayer layer];
-        _progressLayer.frame = CGRectMake((ZZCircleSelfWidth-_realWidth)/2.0, (ZZCircleSelfHeight-_realWidth)/2.0, _realWidth, _realWidth);
-        
         _progressLayer.fillColor = [UIColor clearColor].CGColor;//填充色
         _progressLayer.lineWidth = _strokeWidth;
         _progressLayer.strokeColor = _pathFillColor.CGColor;
         _progressLayer.lineCap = @"round";
-        
-        UIBezierPath *circlePath = [self getNewBezierPath];
-        _progressLayer.path = circlePath.CGPath;
-        _progressLayer.strokeEnd = 0.0;
     }
     return _progressLayer;
 }
@@ -125,11 +110,6 @@
         NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
         NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"ZZCircleProgress" ofType:@"bundle"]];
         _pointImage.image = [UIImage imageNamed:@"circle_point1" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-        
-        _pointImage.frame = CGRectMake(0, 0, _strokeWidth, _strokeWidth);
-        //定位起点位置
-        [self updatePointPosition];
-        
     }
     return _pointImage;
 }
@@ -141,32 +121,46 @@
         _progressLabel.textAlignment = NSTextAlignmentCenter;
         _progressLabel.font = [UIFont systemFontOfSize:22];
         _progressLabel.text = @"0%";
-        _progressLabel.frame = CGRectMake(0, 0, ZZCircleSelfWidth, ZZCircleSelfHeight);
     }
     return _progressLabel;
+}
+
+- (CAAnimation *)pathAnimation {
+    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    pathAnimation.duration = _duration;
+    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    pathAnimation.fromValue = [NSNumber numberWithFloat:_increaseFromLast==YES?_lastProgress:0];
+    pathAnimation.toValue = [NSNumber numberWithFloat:_progress];
+    pathAnimation.fillMode = kCAFillModeForwards;
+    pathAnimation.removedOnCompletion = NO;
+    return pathAnimation;
+}
+
+- (CAAnimation *)pointAnimation {
+    CAKeyframeAnimation *pointAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    pointAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    pointAnimation.fillMode = kCAFillModeForwards;
+    pointAnimation.calculationMode = @"paced";
+    pointAnimation.removedOnCompletion = NO;
+    pointAnimation.duration = _duration;
+    pointAnimation.delegate = self;
+    
+    BOOL clockwise = NO;
+    if (_progress<_lastProgress && _increaseFromLast == YES) {
+        clockwise = YES;
+    }
+    UIBezierPath *imagePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(_realWidth/2.0, _realWidth/2.0) radius:_radius startAngle:_increaseFromLast==YES?(2*M_PI-_reduceAngle)*_lastProgress+_startAngle:_startAngle endAngle:(2*M_PI-_reduceAngle)*_progress+_startAngle clockwise:!clockwise];
+    pointAnimation.path = imagePath.CGPath;
+    
+    return pointAnimation;
 }
 
 #pragma Set
 - (void)setStartAngle:(CGFloat)startAngle {
     if (_startAngle != ZZCircleDegreeToRadian(startAngle)) {
         _startAngle = ZZCircleDegreeToRadian(startAngle);
-        
-        //如果已经创建了相关layer则重新创建
-        if (_backLayer) {
-            UIBezierPath *backCirclePath = [self getNewBezierPath];
-            _backLayer.path = backCirclePath.CGPath;
-        }
-        
-        if (_progressLayer) {
-            UIBezierPath *circlePath = [self getNewBezierPath];
-            _progressLayer.path = circlePath.CGPath;
-            _progressLayer.strokeEnd = 0.0;
-        }
-        
-        if (_pointImage) {
-            //更新圆点位置
-            [self updatePointPosition];
-        }
+        [self setNeedsLayout];
     }
 }
 
@@ -176,71 +170,29 @@
             return;
         }
         _reduceAngle = ZZCircleDegreeToRadian(reduceAngle);
-        
-        if (_backLayer) {
-            UIBezierPath *backCirclePath = [self getNewBezierPath];
-            _backLayer.path = backCirclePath.CGPath;
-        }
-        
-        if (_progressLayer) {
-            UIBezierPath *circlePath = [self getNewBezierPath];
-            _progressLayer.path = circlePath.CGPath;
-            _progressLayer.strokeEnd = 0.0;
-        }
-        
-        if (_pointImage) {
-            //更新圆点位置
-            [self updatePointPosition];
-        }
+        [self setNeedsLayout];
     }
 }
 
 - (void)setStrokeWidth:(CGFloat)strokeWidth {
     if (_strokeWidth != strokeWidth) {
         _strokeWidth = strokeWidth;
-        
         _radius = _realWidth/2.0 - _strokeWidth/2.0;
-        
-        //设置线宽之后会导致radius改变，因此需要修改使用过strokeWidth和radius的属性
-        if (_backLayer) {
-            _backLayer.lineWidth = _strokeWidth;
-            UIBezierPath *backCirclePath = [self getNewBezierPath];
-            _backLayer.path = backCirclePath.CGPath;
-        }
-        
-        if (_progressLayer) {
-            _progressLayer.lineWidth = _strokeWidth;
-            UIBezierPath *circlePath = [self getNewBezierPath];
-            _progressLayer.path = circlePath.CGPath;
-            _progressLayer.strokeEnd = 0.0;
-        }
-        
-        if (_pointImage) {
-            _pointImage.frame = CGRectMake(0, 0, _strokeWidth, _strokeWidth);
-            //更新圆点位置
-            [self updatePointPosition];
-            
-        }
+        [self setNeedsLayout];
     }
 }
 
 - (void)setPathBackColor:(UIColor *)pathBackColor {
     if (_pathBackColor != pathBackColor) {
         _pathBackColor = pathBackColor;
-        
-        if (_backLayer) {
-            _backLayer.strokeColor = _pathBackColor.CGColor;
-        }
+        self.backLayer.strokeColor = _pathBackColor.CGColor;
     }
 }
 
 - (void)setPathFillColor:(UIColor *)pathFillColor {
     if (_pathFillColor != pathFillColor) {
         _pathFillColor = pathFillColor;
-        
-        if (_progressLayer) {
-            _progressLayer.strokeColor = _pathFillColor.CGColor;
-        }
+        self.progressLayer.strokeColor = _pathFillColor.CGColor;
     }
 }
 
@@ -267,53 +219,21 @@
     }
 }
 
-- (void)setPrepareToShow:(BOOL)prepareToShow {
-    if (_prepareToShow != prepareToShow) {
-        _prepareToShow = prepareToShow;
-        if (_prepareToShow) {
-            [self initSubviews];
-        }
-    }
-}
-
 - (void)setProgress:(CGFloat)progress {
-    
-    //准备好显示
-    self.prepareToShow = YES;
     _progress = MAX(MIN(1, progress), 0);
     
-    [self startAnimation];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self startAnimation];
+    });
 }
 
+#pragma Methods
 - (void)startAnimation {
     
-    //线条动画
-    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    pathAnimation.duration = _duration;
-    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    pathAnimation.fromValue = [NSNumber numberWithFloat:_increaseFromLast==YES?_lastProgress:0];
-    pathAnimation.toValue = [NSNumber numberWithFloat:_progress];
-    pathAnimation.fillMode = kCAFillModeForwards;
-    pathAnimation.removedOnCompletion = NO;
-    [self.progressLayer addAnimation:pathAnimation forKey:@"strokeEndAnimation"];
+    [self.progressLayer addAnimation:[self pathAnimation] forKey:@"strokeEndAnimation"];
     
     if (_showPoint) {
-        //小图片动画
-        CAKeyframeAnimation *pointAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-        pointAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-        pointAnimation.fillMode = kCAFillModeForwards;
-        pointAnimation.calculationMode = @"paced";
-        pointAnimation.removedOnCompletion = NO;
-        pointAnimation.duration = _duration;
-        pointAnimation.delegate = self;
-        
-        BOOL clockwise = NO;
-        if (_progress<_lastProgress && _increaseFromLast == YES) {
-            clockwise = YES;
-        }
-        UIBezierPath *imagePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(_realWidth/2.0, _realWidth/2.0) radius:_radius startAngle:_increaseFromLast==YES?(2*M_PI-_reduceAngle)*_lastProgress+_startAngle:_startAngle endAngle:(2*M_PI-_reduceAngle)*_progress+_startAngle clockwise:!clockwise];
-        pointAnimation.path = imagePath.CGPath;
+        CAAnimation *pointAnimation = [self pointAnimation];
         [self.pointImage.layer addAnimation:pointAnimation forKey:@"pointAnimation"];
         self.lastPointAnimation = pointAnimation;
         
@@ -322,48 +242,61 @@
         }
     }
     
-    if (_showProgressText) {
-        if (_increaseFromLast) {
-            [self.progressLabel countingFrom:_lastProgress*100 to:_progress*100 duration:_duration];
-        } else {
-            [self.progressLabel countingFrom:0 to:_progress*100 duration:_duration];
-        }
+    if (_showProgressText && _increaseFromLast) {
+        [self.progressLabel countingFrom:_lastProgress*100 to:_progress*100 duration:_duration];
+    } else if (_showProgressText) {
+        [self.progressLabel countingFrom:0 to:_progress*100 duration:_duration];
     }
-    
     
     _lastProgress = _progress;
 }
 
-//刷新最新路径
 - (UIBezierPath *)getNewBezierPath {
     return [UIBezierPath bezierPathWithArcCenter:CGPointMake(_realWidth/2.0, _realWidth/2.0) radius:_radius startAngle:_startAngle endAngle:(2*M_PI-_reduceAngle+_startAngle) clockwise:YES];
 }
 
-//监听动画结束
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    
-    if (flag && anim == [self.pointImage.layer valueForKey:@"pointAnimation"]) {
+    if (flag && anim == [self.pointImage.layer animationForKey:@"pointAnimation"]) {
         [self updatePointPosition];
     }
 }
 
-//更新小圆点的真实位置
 - (void)updatePointPosition {
-    
-    //重定位起点
     CGFloat currentEndAngle = (2*M_PI-_reduceAngle)*_progress+_startAngle;
     [_pointImage.layer removeAllAnimations];
     _pointImage.center = CGPointMake(_realWidth/2.0+_radius*cosf(currentEndAngle), _realWidth/2.0+_radius*sinf(currentEndAngle));
-    
 }
 
+#pragma initSubviews
 - (void)initSubviews {
     [self.layer addSublayer:self.backLayer];
     [self.layer addSublayer:self.progressLayer];
     
     [self addSubview:self.pointImage];
     [self addSubview:self.progressLabel];
+}
+
+#pragma layout
+- (void)layoutSubviews {
+    [super layoutSubviews];
     
+    self.realWidth = MIN(ZZCircleSelfWidth, ZZCircleSelfHeight);
+    self.radius = _realWidth/2.0 - _strokeWidth/2.0;
+    
+    self.backLayer.frame = CGRectMake(0, 0, _realWidth, _realWidth);
+    self.backLayer.lineWidth = _strokeWidth;
+    self.backLayer.path = [self getNewBezierPath].CGPath;
+
+    self.progressLayer.frame = CGRectMake(0, 0, _realWidth, _realWidth);
+    self.progressLayer.lineWidth = _strokeWidth;
+    self.progressLayer.path = [self getNewBezierPath].CGPath;
+    self.progressLayer.strokeEnd = 0.0;
+
+    self.progressLabel.frame = CGRectMake(0, 0, _realWidth, _realWidth);
+    
+    self.pointImage.frame = CGRectMake(0, 0, _strokeWidth, _strokeWidth);
+    [self updatePointPosition];
+        
 }
 
 @end

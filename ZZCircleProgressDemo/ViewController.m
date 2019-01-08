@@ -8,10 +8,13 @@
 
 #import "ViewController.h"
 #import "ZZCircleProgress.h"
+#import "Masonry.h"
 
 @interface ViewController ()
 
-@property (weak, nonatomic) IBOutlet ZZCircleProgress *progressView;
+@property (strong, nonatomic) ZZCircleProgress *progressView;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *startAngleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reduceAngleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *strokeWidthLabel;
@@ -24,7 +27,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //1.添加进度条frame
+//    [self addProgressViewByFrame];
+    
+    //2.添加进度条autolayout
+    [self addProgressViewByAutoLayout];
 }
+
+//frame
+- (void)addProgressViewByFrame {
+    self.progressView = [[ZZCircleProgress alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)-240)/2.0, 42, 240, 240) pathBackColor:[UIColor lightGrayColor] pathFillColor:[UIColor redColor] startAngle:0 strokeWidth:10];
+    [self.view addSubview:self.progressView];
+}
+
+//autolayout
+- (void)addProgressViewByAutoLayout {
+    self.progressView = [[ZZCircleProgress alloc] init];
+    self.progressView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
+    [self.view addSubview:self.progressView];
+    
+    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view).offset(42);
+        make.left.mas_equalTo(self.view).offset(120);
+        make.right.mas_equalTo(self.view).offset(-120);
+        make.bottom.mas_equalTo(self.view.mas_top).offset(300);
+    }];
+}
+
 
 //改变开始角度
 - (IBAction)startAngleChanged:(UISlider *)sender {

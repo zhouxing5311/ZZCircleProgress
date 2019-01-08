@@ -33,8 +33,6 @@
 @property (nonatomic, assign) BOOL showProgressText;/**<是否显示文字*/
 @property (nonatomic, assign) BOOL increaseFromLast;/**<是否从上次数值开始动画，默认为NO*/
 
-@property (nonatomic, assign) BOOL prepareToShow;/**<是否准备好显示, 如果创建好就显示必须在设置完其他属性后最后设置此属性为YES*/
-
 //进度
 @property (nonatomic, assign) CGFloat progress;/**<进度 0-1 */
 
