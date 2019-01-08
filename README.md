@@ -12,6 +12,9 @@
 
 `ZZCircleProgress` 是一款可以高度自定义的环形进度条。你能看到的任何地方都可以进行自定义，包括圆环的开始角度、缺少角度、以及动画时长、动画刷新方式等等。而且相关的属性设置支持动态化，你可以在进度条加载完成之后随时更改他们的属性。
 
+## 最近更新
+* 2019.01.08：解决自动布局下进度条大小展示异常的问题；去除prepareToShow属性；代码整理优化。
+
 ## 特点
 
 - [x] 可以自定义所有东西。
@@ -68,6 +71,7 @@ progressView.progressLabel......//progressLabel集成自UILabel。属性随意�
 
 
 ## 更新历史:
+* 2019.01.08：解决自动布局下进度条大小展示异常的问题；去除prepareToShow属性；代码整理优化。
 * 2018.05.26：解决iOS10以下设备可能报错的问题。frameInterval和preferredFramesPerSecond进行版本判断。
 * 2018.05.16：发布0.1.0版本及0.2.0版本到cocoapods。(0.1.0版本包括以前draw rect实现的进度条)
 * 2018.03.09：ZZCACircleProgress支持属性动态修改，具体实例见demo，ZZCircleProgress增加动画时长属性。

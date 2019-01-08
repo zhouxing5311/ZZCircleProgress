@@ -36,7 +36,16 @@
 //进度
 @property (nonatomic, assign) CGFloat progress;/**<进度 0-1 */
 
-//初始化
+/**
+ 初始化
+
+ @param frame 使用自动布局时传CGRectZero
+ @param pathBackColor 背景线条色
+ @param pathFillColor 填充线条色
+ @param startAngle 开始角度
+ @param strokeWidth 线条宽度
+ @return ZZCircleProgress
+ */
 - (instancetype)initWithFrame:(CGRect)frame
                 pathBackColor:(UIColor *)pathBackColor
                 pathFillColor:(UIColor *)pathFillColor
