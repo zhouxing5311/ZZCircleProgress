@@ -46,7 +46,6 @@ pod 'ZZCircleProgress', '~> 0.2.1'
 ### 纯代码方式加载。
 ```objective-c
 ZZCircleProgress *progressView = [[ZZCircleProgress alloc] initWithFrame:CGRectMake(100, 100, 100, 100) pathBackColor:[UIColor lightGrayColor] pathFillColor:[UIColor redColor] startAngle:0 strokeWidth:20];
-progressView.prepareToShow = YES;//设置完进度条相关属性后需要设置此属性为YES，否则设置progress之前进度条不显示。
 [self.view addSubview:progressView];
 ```
 
@@ -61,9 +60,6 @@ progressView.showProgressText = NO;//是否显示默认进度文本。默认为Y
 progressView.increaseFromLast = YES;//进度条动画是否从上次进度开始动画。默认为NO
 progressView.progressLabel......//progressLabel集成自UILabel。属性随意设置
 ```
-
-设置完相关属性记得调用`progressView.prepareToShow = YES;`。
-
 
 ## 效果展示
 
