@@ -42,7 +42,8 @@
 
 //autolayout
 - (void)addProgressViewByAutoLayout {
-    self.progressView = [[ZZCircleProgress alloc] init];
+//    self.progressView = [[ZZCircleProgress alloc] init];
+    self.progressView = [[ZZCircleProgress alloc] initWithFrame:CGRectZero pathBackColor:[UIColor grayColor] pathFillColor:[UIColor greenColor] startAngle:0 strokeWidth:20];
     self.progressView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
     [self.view addSubview:self.progressView];
     

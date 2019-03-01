@@ -13,6 +13,7 @@
 `ZZCircleProgress` 是一款可以高度自定义的环形进度条。你能看到的任何地方都可以进行自定义，包括圆环的开始角度、缺少角度、以及动画时长、动画刷新方式等等。而且相关的属性设置支持动态化，你可以在进度条加载完成之后随时更改他们的属性。
 
 ## 最近更新
+* 2019.03.01：解决`initWithFrame: pathBackColor: pathFillColor: startAngle: strokeWidth:`方法设置pathBackColor、pathFillColor方法失效问题。
 * 2019.01.08：解决自动布局下进度条大小展示异常的问题；去除prepareToShow属性；代码整理优化。
 
 ## 特点

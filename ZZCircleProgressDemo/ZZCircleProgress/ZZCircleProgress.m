@@ -50,12 +50,8 @@
                   strokeWidth:(CGFloat)strokeWidth {
     if (self = [super initWithFrame:frame]) {
         [self initialization];
-        if (pathBackColor) {
-            _pathBackColor = pathBackColor;
-        }
-        if (pathFillColor) {
-            _pathFillColor = pathFillColor;
-        }
+        self.pathBackColor = pathBackColor;
+        self.pathFillColor = pathFillColor;
         _startAngle = ZZCircleDegreeToRadian(startAngle);
         _strokeWidth = strokeWidth;
     }
